@@ -18,21 +18,16 @@ To get started with the Movie Search App, follow these steps:
    git clone https://github.com/your-username/movie-search-app.git
 
 Navigate to the project directory:
+    - cd movie-search-app
 
-bash
-Copy code
-cd movie-search-app
 Install dependencies:
 
-bash
-Copy code
 npm install
 # or
 yarn install
+
 Run the development server:
 
-bash
-Copy code
 npm run dev
 # or
 yarn dev
