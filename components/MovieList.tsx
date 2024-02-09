@@ -1,24 +1,25 @@
-import React from "react";
+import React from 'react';
 
 interface MovieListProps {
   movies: any[];
 }
 
-const MovieList: React.FC<MovieListProps> = ({ movies }) => {
+const MovieList: React.FC<MovieListProps> = ({ movies}) => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-      {movies.map((movie, index) => (
-        <div
-          key={index}
-          className="bg-blue-100 rounded-lg overflow-hidden shadow-md"
-        >
-          <img src={movie.Poster} alt={movie.Title} className="w-full h-auto" />
-          <div className="p-4">
-            <h2 className="text-xl font-bold">{movie.Title}</h2>
-            <p className="text-gray-600">{movie.Year}</p>
+    <div>
+      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
+        {movies?.map((movie, index) => (
+          <div key={index} className="col">
+            <div className="card">
+              <img src={movie.Poster} className="card-img-top" alt={movie.Title} />
+              <div className="card-body">
+                <h5 className="card-title">{movie.Title}</h5>
+                <p className="card-text">{movie.Year}</p>
+              </div>
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };

@@ -1,15 +1,21 @@
-// // tests/SearchForm.test.tsx
+import React from "react";
+import { render, fireEvent } from "@testing-library/react";
+import SearchForm from "./../components/SearchForm";
 
-// import React from 'react';
-// import { render, fireEvent } from '@testing-library/react';
-// import SearchForm from '../components/SearchForm';
-// import test from 'node:test';
+test("search form calls onSearch callback with correct query", () => {
+  const onSearchMock = jest.fn();
+  const { getByPlaceholderText, getByText } = render(
+    <SearchForm onSearch={onSearchMock} />
+  );
 
-// test'SearchForm renders without errors', () => {
-//   const { getByPlaceholderText, getByText } = render(<SearchForm onSearch={() => {}} />);
-//   const input = getByPlaceholderText('Search movies...');
-//   const searchButton = getByText('Search');
+  // Type into the search input
+  const searchInput = getByPlaceholderText("Enter movie name...");
+  fireEvent.change(searchInput, { target: { value: "Avatar" } });
 
-//   expect(input).toBeInTheDocument();
-//   expect(searchButton).toBeInTheDocument();
-// });
+  // Click the search button
+  const searchButton = getByText("Search");
+  fireEvent.click(searchButton);
+
+  // Assert that onSearch callback is called with correct query
+  expect(onSearchMock).toHaveBeenCalledWith("Avatar");
+});

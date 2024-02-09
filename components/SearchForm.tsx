@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Button, Form } from "react-bootstrap";
 
 interface SearchFormProps {
   onSearch: (query: string) => void;
@@ -7,31 +8,35 @@ interface SearchFormProps {
 const SearchForm: React.FC<SearchFormProps> = ({ onSearch }) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  const handleSearch = () => {
-    onSearch(searchQuery);
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (searchQuery.trim() !== "") {
+      onSearch(searchQuery);
+    }
   };
 
   return (
-    <div className="flex justify-center">
-      <div className="w-3/4">
-        <div className="flex items-center space-x-4 w-full">
-          <input
-            className="w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:border-blue-500 bg-white px-4 py-4"
-            type="text"
-            placeholder="Search movies..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            required
-          />
-          <button
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-            onClick={handleSearch}
-          >
-            Search
-          </button>
-        </div>
+    <>
+      <Form onSubmit={handleSubmit} className="d-flex">
+        <Form.Control
+          type="text"
+          placeholder="Enter movie name..."
+          className="mr-2 flex-grow-1"
+          required={true}
+          style={{ height: "60px" }}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        <Button type="submit">Search</Button>
+      </Form>
+      <div>
+        {searchQuery.length <= 0 && (
+          <h3 className="text-center text-muted mt-3">
+            Please enter a movie name to start your search.
+          </h3>
+        )}
       </div>
-    </div>
+    </>
   );
 };
 
